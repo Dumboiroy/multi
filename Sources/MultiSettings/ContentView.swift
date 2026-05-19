@@ -34,6 +34,8 @@ public struct ContentView: View, NSViewRepresentable {
         let configuration = WKWebViewConfiguration()
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+        configuration.preferences.setValue(false, forKey: "mediaPlaybackRequiresUserAction")
+        configuration.preferences.setValue([], forKey: "mediaTypesRequiringUserActionForPlayback")
         for script in scripts {
             configuration.userContentController.addUserScript(script)
         }
