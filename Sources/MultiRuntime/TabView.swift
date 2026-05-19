@@ -72,6 +72,7 @@ struct TabView: View {
                 "notificationRequest": notificationRequest,
                 "notificationShow": notificationShow,
                 "notificationClose": notificationClose,
+                "deviceManager.getDevices": getDevices,
             ]
         ) { webView in
             onPresent(webView.window!)
@@ -102,5 +103,14 @@ struct TabView: View {
             throw Error(message: "Notification tag is required")
         }
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [tag])
+    }
+
+    func getDevices(_: NSObject) async throws -> [String: Bool] {
+        let deviceManager = DeviceManager.shared
+        return [
+            "camera": deviceManager.checkCameraAccess(),
+            "microphone": deviceManager.checkMicrophoneAccess(),
+            "speaker": true,
+        ]
     }
 }
